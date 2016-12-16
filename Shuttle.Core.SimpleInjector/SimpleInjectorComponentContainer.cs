@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Shuttle.Core.Infrastructure;
 using SimpleInjector;
 using Lifestyle = Shuttle.Core.Infrastructure.Lifestyle;
@@ -26,17 +28,47 @@ namespace Shuttle.Core.SimpleInjector
                 switch (lifestyle)
                 {
                     case Lifestyle.Transient:
-                    {
-                        _container.Register(serviceType, implementationType, global::SimpleInjector.Lifestyle.Transient);
+                        {
+                            _container.Register(serviceType, implementationType, global::SimpleInjector.Lifestyle.Transient);
 
-                        break;
-                    }
+                            break;
+                        }
                     default:
-                    {
-                        _container.Register(serviceType, implementationType, global::SimpleInjector.Lifestyle.Singleton);
+                        {
+                            _container.Register(serviceType, implementationType, global::SimpleInjector.Lifestyle.Singleton);
 
-                        break;
-                    }
+                            break;
+                        }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new TypeRegistrationException(ex.Message, ex);
+            }
+
+            return this;
+        }
+
+        public IComponentRegistry RegisterCollection(Type serviceType, IEnumerable<Type> implementationTypes, Lifestyle lifestyle)
+        {
+            Guard.AgainstNull(serviceType, "serviceType");
+            Guard.AgainstNull(implementationTypes, "implementationTypes");
+
+            try
+            {
+                switch (lifestyle)
+                {
+                    case Lifestyle.Transient:
+                        {
+                            _container.RegisterCollection(serviceType, implementationTypes.Select(t => global::SimpleInjector.Lifestyle.Transient.CreateRegistration(t, _container)));
+
+                            break;
+                        }
+                    default:
+                        {
+                            _container.RegisterCollection(serviceType, implementationTypes.Select(t => global::SimpleInjector.Lifestyle.Singleton.CreateRegistration(t, _container)));
+                            break;
+                        }
                 }
             }
             catch (Exception ex)
@@ -71,6 +103,20 @@ namespace Shuttle.Core.SimpleInjector
             try
             {
                 return _container.GetInstance(serviceType);
+            }
+            catch (Exception ex)
+            {
+                throw new TypeResolutionException(ex.Message, ex);
+            }
+        }
+
+        public IEnumerable<object> ResolveAll(Type serviceType)
+        {
+            Guard.AgainstNull(serviceType, "serviceType");
+
+            try
+            {
+                return _container.GetAllInstances(serviceType);
             }
             catch (Exception ex)
             {

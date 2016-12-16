@@ -35,8 +35,12 @@
       <HintPath>..\packages\NUnit.3.5.0\lib\net40\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.Core.Infrastructure, Version=4.2.33.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Shuttle.Core.Infrastructure.4.2.33\lib\net40-full\Shuttle.Core.Infrastructure.dll</HintPath>
+    <Reference Include="Shuttle.Core.ComponentContainer.Tests, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Core.ComponentContainer.Tests.1.0.4\lib\net40-full\Shuttle.Core.ComponentContainer.Tests.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Shuttle.Core.Infrastructure, Version=4.2.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Core.Infrastructure.4.2.45\lib\net40-full\Shuttle.Core.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SimpleInjector, Version=3.3.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
@@ -48,12 +52,7 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DoSomething.cs" />
-    <Compile Include="DoSomethingWithDependency.cs" />
-    <Compile Include="IDoSomething.cs" />
-    <Compile Include="ISomeDependency.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SomeDependency.cs" />
     <Compile Include="SimpleInjectorComponentContainerFixture.cs" />
   </ItemGroup>
   <ItemGroup>

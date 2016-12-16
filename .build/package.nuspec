@@ -12,7 +12,7 @@
     <description>SimpleInjector implementation of the Shuttle.Core.Infrastructure dependency injection interfaces.</description>
     <releaseNotes/>
 		<copyright>Copyright (c) {year}, Eben Roux</copyright>
-		<tags>shuttle</tags>
+		<tags>Shuttle.Core SimpleInjector</tags>
     <dependencies>
       <dependency id="Shuttle.Core.Infrastructure" version="{Shuttle.Core.Infrastructure-version}" />
       <dependency id="SimpleInjector" version="{SimpleInjector-version}" />

@@ -1,42 +1,37 @@
 ﻿using NUnit.Framework;
-using Shuttle.Core.Infrastructure;
+using Shuttle.Core.ComponentContainer.Tests;
 using SimpleInjector;
-using Lifestyle = Shuttle.Core.Infrastructure.Lifestyle;
 
 namespace Shuttle.Core.SimpleInjector.Tests
 {
     [TestFixture]
-    public class SimpleInjectorComponentContainerFixture
+    public class SimpleInjectorComponentContainerFixture : ComponentContainerFixture
     {
         [Test]
-        public void Should_be_able_to_register_and_resolve_a_type()
+        public void Should_be_able_resolve_all_instances()
         {
             var container = new SimpleInjectorComponentContainer(new Container());
-            var serviceType = typeof(IDoSomething);
-            var implementationType = typeof(DoSomething);
-            var bogusType = typeof(object);
 
-            container.Register(serviceType, implementationType, Lifestyle.Singleton);
-
-            Assert.NotNull(container.Resolve(serviceType));
-            Assert.AreEqual(implementationType, container.Resolve(serviceType).GetType());
-            Assert.Throws<TypeResolutionException>(() => container.Resolve(bogusType));
+            RegisterCollection(container);
+            ResolveCollection(container);
         }
 
         [Test]
-        public void Should_be_able_to_use_constructor_injection()
+        public void Should_be_able_to_register_and_resolve_a_singleton()
         {
             var container = new SimpleInjectorComponentContainer(new Container());
-            var serviceType = typeof(IDoSomething);
-            var implementationType = typeof(DoSomethingWithDependency);
 
-            container.Register(serviceType, implementationType, Lifestyle.Singleton);
+            RegisterSingleton(container);
+            ResolveSingleton(container);
+        }
 
-            var someDependency = new SomeDependency();
+        [Test]
+        public void Should_be_able_to_register_and_resolve_transient_components()
+        {
+            var container = new SimpleInjectorComponentContainer(new Container());
 
-            container.Register(typeof(ISomeDependency), someDependency);
-
-            Assert.AreSame(someDependency, container.Resolve<IDoSomething>().SomeDependency);
+            RegisterTransient(container);
+            ResolveTransient(container);
         }
     }
 }
