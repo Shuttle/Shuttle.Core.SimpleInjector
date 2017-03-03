@@ -7,7 +7,7 @@ using Lifestyle = Shuttle.Core.Infrastructure.Lifestyle;
 
 namespace Shuttle.Core.SimpleInjector
 {
-    public class SimpleInjectorComponentContainer : IComponentRegistry, IComponentResolver
+    public class SimpleInjectorComponentContainer : ComponentRegistry, IComponentResolver
     {
         private readonly Container _container;
 
@@ -18,24 +18,26 @@ namespace Shuttle.Core.SimpleInjector
             _container = container;
         }
 
-        public IComponentRegistry Register(Type serviceType, Type implementationType, Lifestyle lifestyle)
+        public override IComponentRegistry Register(Type dependencyType, Type implementationType, Lifestyle lifestyle)
         {
-            Guard.AgainstNull(serviceType, "serviceType");
+            Guard.AgainstNull(dependencyType, "dependencyType");
             Guard.AgainstNull(implementationType, "implementationType");
 
+	        base.Register(dependencyType, implementationType, lifestyle);
+
             try
             {
                 switch (lifestyle)
                 {
                     case Lifestyle.Transient:
                         {
-                            _container.Register(serviceType, implementationType, global::SimpleInjector.Lifestyle.Transient);
+                            _container.Register(dependencyType, implementationType, global::SimpleInjector.Lifestyle.Transient);
 
                             break;
                         }
                     default:
                         {
-                            _container.Register(serviceType, implementationType, global::SimpleInjector.Lifestyle.Singleton);
+                            _container.Register(dependencyType, implementationType, global::SimpleInjector.Lifestyle.Singleton);
 
                             break;
                         }
@@ -49,24 +51,26 @@ namespace Shuttle.Core.SimpleInjector
             return this;
         }
 
-        public IComponentRegistry RegisterCollection(Type serviceType, IEnumerable<Type> implementationTypes, Lifestyle lifestyle)
+        public override IComponentRegistry RegisterCollection(Type dependencyType, IEnumerable<Type> implementationTypes, Lifestyle lifestyle)
         {
-            Guard.AgainstNull(serviceType, "serviceType");
+            Guard.AgainstNull(dependencyType, "dependencyType");
             Guard.AgainstNull(implementationTypes, "implementationTypes");
 
+	        base.RegisterCollection(dependencyType, implementationTypes, lifestyle);
+
             try
             {
                 switch (lifestyle)
                 {
                     case Lifestyle.Transient:
                         {
-                            _container.RegisterCollection(serviceType, implementationTypes.Select(t => global::SimpleInjector.Lifestyle.Transient.CreateRegistration(t, _container)));
+                            _container.RegisterCollection(dependencyType, implementationTypes.Select(t => global::SimpleInjector.Lifestyle.Transient.CreateRegistration(t, _container)));
 
                             break;
                         }
                     default:
                         {
-                            _container.RegisterCollection(serviceType, implementationTypes.Select(t => global::SimpleInjector.Lifestyle.Singleton.CreateRegistration(t, _container)));
+                            _container.RegisterCollection(dependencyType, implementationTypes.Select(t => global::SimpleInjector.Lifestyle.Singleton.CreateRegistration(t, _container)));
                             break;
                         }
                 }
@@ -79,14 +83,16 @@ namespace Shuttle.Core.SimpleInjector
             return this;
         }
 
-        public IComponentRegistry Register(Type serviceType, object instance)
+        public override IComponentRegistry Register(Type dependencyType, object instance)
         {
-            Guard.AgainstNull(serviceType, "serviceType");
+            Guard.AgainstNull(dependencyType, "dependencyType");
             Guard.AgainstNull(instance, "instance");
+
+	        base.Register(dependencyType, instance);
 
             try
             {
-                _container.RegisterSingleton(serviceType, () => instance);
+                _container.RegisterSingleton(dependencyType, () => instance);
             }
             catch (Exception ex)
             {
@@ -96,13 +102,13 @@ namespace Shuttle.Core.SimpleInjector
             return this;
         }
 
-        public object Resolve(Type serviceType)
+        public object Resolve(Type dependencyType)
         {
-            Guard.AgainstNull(serviceType, "serviceType");
+            Guard.AgainstNull(dependencyType, "dependencyType");
 
             try
             {
-                return _container.GetInstance(serviceType);
+                return _container.GetInstance(dependencyType);
             }
             catch (Exception ex)
             {
@@ -110,13 +116,13 @@ namespace Shuttle.Core.SimpleInjector
             }
         }
 
-        public IEnumerable<object> ResolveAll(Type serviceType)
+        public IEnumerable<object> ResolveAll(Type dependencyType)
         {
-            Guard.AgainstNull(serviceType, "serviceType");
+            Guard.AgainstNull(dependencyType, "dependencyType");
 
             try
             {
-                return _container.GetAllInstances(serviceType);
+                return _container.GetAllInstances(dependencyType);
             }
             catch (Exception ex)
             {
