@@ -4,7 +4,7 @@
 
 The `SimpleInjectorComponentContainer` implements both the `IComponentRegistry` and `IComponentResolver` interfaces.  
 
-~~~c#
+``` c#
 var container = new SimpleInjectorComponentContainer(new SimpleInjector.Container());
-~~~
+```
 
