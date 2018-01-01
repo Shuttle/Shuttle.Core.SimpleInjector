@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Shuttle.Core.Infrastructure;
-using SimpleInjector;
-using Lifestyle = Shuttle.Core.Infrastructure.Lifestyle;
+using Shuttle.Core.Container;
+using Shuttle.Core.Contract;
+using Lifestyle = Shuttle.Core.Container.Lifestyle;
 
 namespace Shuttle.Core.SimpleInjector
 {
     public class SimpleInjectorComponentContainer : ComponentRegistry, IComponentResolver
     {
-        private readonly Container _container;
+        private readonly global::SimpleInjector.Container _container;
 
-        public SimpleInjectorComponentContainer(Container container)
+        public SimpleInjectorComponentContainer(global::SimpleInjector.Container container)
         {
             Guard.AgainstNull(container, "container");
 
