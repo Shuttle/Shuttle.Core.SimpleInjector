@@ -33,6 +33,24 @@ namespace Shuttle.Core.SimpleInjector.Tests
             ResolveTransient(container);
         }
 
+        [Test]
+        public void Should_be_able_to_register_and_resolve_an_open_generic_singleton()
+        {
+            var container = new SimpleInjectorComponentContainer(new global::SimpleInjector.Container());
+
+            RegisterSingletonOpen(container);
+            ResolveSingletonOpen(container);
+        }
+
+        [Test]
+        public void Should_be_able_to_register_and_resolve_transient_open_generic_components()
+        {
+            var container = new SimpleInjectorComponentContainer(new global::SimpleInjector.Container());
+
+            RegisterTransientOpen(container);
+            ResolveTransientOpen(container);
+        }
+
 		[Test]
 		public void Should_be_able_to_register_and_resolve_a_multiple_singleton()
 		{
