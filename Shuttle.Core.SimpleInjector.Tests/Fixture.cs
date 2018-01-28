@@ -38,8 +38,8 @@ namespace Shuttle.Core.SimpleInjector.Tests
         {
             var container = new SimpleInjectorComponentContainer(new global::SimpleInjector.Container());
 
-            RegisterSingletonOpen(container);
-            ResolveSingletonOpen(container);
+            RegisterSingletonGeneric(container);
+            ResolveSingletonGeneric(container);
         }
 
         [Test]
@@ -47,8 +47,8 @@ namespace Shuttle.Core.SimpleInjector.Tests
         {
             var container = new SimpleInjectorComponentContainer(new global::SimpleInjector.Container());
 
-            RegisterTransientOpen(container);
-            ResolveTransientOpen(container);
+            RegisterTransientGeneric(container);
+            ResolveTransientGeneric(container);
         }
 
 		[Test]

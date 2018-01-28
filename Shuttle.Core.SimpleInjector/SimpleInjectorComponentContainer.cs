@@ -102,11 +102,9 @@ namespace Shuttle.Core.SimpleInjector
             return this;
         }
 
-        public override IComponentRegistry RegisterOpen(Type dependencyType, Type implementationType, Lifestyle lifestyle)
+        public override IComponentRegistry RegisterGeneric(Type dependencyType, Type implementationType, Lifestyle lifestyle)
         {
-            Register(dependencyType, implementationType, lifestyle);
-
-            return this;
+            return Register(dependencyType, implementationType, lifestyle);
         }
 
         public object Resolve(Type dependencyType)
