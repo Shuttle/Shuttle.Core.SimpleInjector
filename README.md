@@ -1,6 +1,8 @@
 # Shuttle.Core.SimpleInjector
 
-# SimpleInjectorComponentContainer
+```
+PM> Install-Package Shuttle.Core.SimpleInjector
+```
 
 The `SimpleInjectorComponentContainer` implements both the `IComponentRegistry` and `IComponentResolver` interfaces.  
 
