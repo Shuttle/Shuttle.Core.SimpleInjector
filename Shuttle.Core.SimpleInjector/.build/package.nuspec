@@ -8,6 +8,7 @@
 		<licenseUrl>https://github.com/shuttle/Shuttle.Core.SimpleInjector/raw/master/LICENSE</licenseUrl>
 		<projectUrl>https://github.com/shuttle/Shuttle.Core.SimpleInjector</projectUrl>
 		<iconUrl>https://raw.githubusercontent.com/Shuttle/Shuttle.Core.SimpleInjector/master/.media/logo.png</iconUrl>
+	  <repository type="git" url="https://github.com/Shuttle/Shuttle.Core.SimpleInjector.git" />
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 	  <description>SimpleInjector implementation of the Shuttle.Core.Container dependency injection interfaces</description>
 	  <releaseNotes/>
