@@ -16,6 +16,9 @@ namespace Shuttle.Core.SimpleInjector
             Guard.AgainstNull(container, "container");
 
             _container = container;
+
+            this.AttemptRegisterInstance<IComponentRegistry>(this);
+            this.AttemptRegisterInstance<IComponentResolver>(this);
         }
 
         public override IComponentRegistry Register(Type dependencyType, Type implementationType, Lifestyle lifestyle)
@@ -64,13 +67,14 @@ namespace Shuttle.Core.SimpleInjector
                 {
                     case Lifestyle.Transient:
                         {
-                            _container.RegisterCollection(dependencyType, implementationTypes.Select(t => global::SimpleInjector.Lifestyle.Transient.CreateRegistration(t, _container)));
+                            _container.Collection.Register(dependencyType, implementationTypes.Select(t => global::SimpleInjector.Lifestyle.Transient.CreateRegistration(t, _container)));
 
                             break;
                         }
                     default:
                         {
-                            _container.RegisterCollection(dependencyType, implementationTypes.Select(t => global::SimpleInjector.Lifestyle.Singleton.CreateRegistration(t, _container)));
+                            _container.Collection.Register(dependencyType, implementationTypes.Select(t => global::SimpleInjector.Lifestyle.Singleton.CreateRegistration(t, _container)));
+
                             break;
                         }
                 }
