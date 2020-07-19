@@ -7,7 +7,7 @@ namespace Shuttle.Core.SimpleInjector.Tests
     public class SimpleInjectorComponentContainerFixture : ContainerFixture
     {
         [Test]
-        public void Should_be_able_resolve_all_instances()
+        public void Should_be_able_to_resolve_all_instances()
         {
             var container = new SimpleInjectorComponentContainer(new global::SimpleInjector.Container());
 
